@@ -56,7 +56,7 @@ namespace WindowsFormsApp6
         }
         //
         public string TranslateText(string input, string languagePair, string sudildencevir = "auto") {
-            string url = String.Format("https://translate.google.com/?hl="+languagePair+"&sl=" + sudildencevir+"&tl=tr&text="+ input + "&op=translate", input, languagePair);
+            string url = String.Format("https://translate.google.com/?hl=en&sl=" + sudildencevir+"&tl=tr&text="+ input + "&op=translate", input, languagePair);
             WebClient webClient = new WebClient();
             webClient.Encoding = System.Text.Encoding.Default;
             string result = webClient.DownloadString(url);
@@ -253,6 +253,7 @@ namespace WindowsFormsApp6
                 try
                 {
                     var CevrilecekMetindili = client.DetectLanguage(text: CevrilecekMetin);
+                    MessageBox.Show(CevrilecekMetindili.ToString());
                     if (CevrilecekMetindili.Language != comboBox2.Text)
                     {
                        richTextBox2.Text = client.TranslateText(CevrilecekMetin, comboBox2.Text, CevrilecekMetindili.Language).TranslatedText;
@@ -265,6 +266,7 @@ namespace WindowsFormsApp6
                 catch (Google.GoogleApiException)
                 {
                     MessageBox.Show("Çeviri limitine takılındı. Lütfen api anahtarınızı yenileyiniz.");
+                    MessageBox.Show(TranslateText(CevrilecekMetin, comboBox2.Text));
                 }
             }
             else
